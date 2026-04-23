@@ -1,0 +1,359 @@
+
+:root {
+  --ink          : #1a1109;
+  --ink-light    : #4a3f35;
+  --ink-muted    : #8c7b6e;
+  --paper        : #faf7f2;
+  --paper-card   : #ffffff;
+  --rule         : #e8e0d5;
+  --accent       : #c0392b;        /* deep red – editorial accent */
+  --accent-hover : #96291f;
+  --success      : #27ae60;
+  --warn-bg      : #fff3f3;
+  --warn-border  : #e74c3c;
+  --font-display : 'Playfair Display', Georgia, serif;
+  --font-body    : 'Source Serif 4', Georgia, serif;
+  --radius       : 6px;
+  --shadow-card  : 0 2px 16px rgba(26,17,9,0.08);
+  --transition   : 0.18s ease;
+  --max-width    : 900px;
+}
+
+/* ===================================================================
+   2. Reset & Base
+=================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family : var(--font-body);
+  background  : var(--paper);
+  color       : var(--ink);
+  line-height : 1.7;
+  font-size   : 1rem;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ===================================================================
+   3. Navigation Bar
+=================================================================== */
+.navbar {
+  background    : var(--ink);
+  color         : var(--paper);
+  display       : flex;
+  align-items   : center;
+  justify-content: space-between;
+  padding       : 0 32px;
+  height        : 60px;
+  position      : sticky;
+  top           : 0;
+  z-index       : 100;
+  box-shadow    : 0 2px 12px rgba(0,0,0,0.25);
+}
+
+.nav-brand {
+  font-family  : var(--font-display);
+  font-size    : 1.3rem;
+  color        : #fff;
+  letter-spacing: 0.5px;
+}
+.nav-brand:hover { text-decoration: none; opacity: 0.9; }
+
+.nav-links { display: flex; align-items: center; gap: 20px; }
+
+.nav-link {
+  color       : #d9cfc4;
+  font-size   : 0.9rem;
+  font-family : var(--font-body);
+  transition  : color var(--transition);
+}
+.nav-link:hover { color: #fff; text-decoration: none; }
+
+/* CTA button in nav */
+.nav-link--cta {
+  background   : var(--accent);
+  color        : #fff;
+  padding      : 7px 16px;
+  border-radius: var(--radius);
+  font-weight  : 600;
+  transition   : background var(--transition);
+}
+.nav-link--cta:hover { background: var(--accent-hover); text-decoration: none; }
+
+/* ===================================================================
+   4. Main Content Wrapper
+=================================================================== */
+.main-content {
+  max-width : var(--max-width);
+  margin    : 0 auto;
+  padding   : 48px 24px 80px;
+}
+
+/* ===================================================================
+   5. Page Header (Home Page)
+=================================================================== */
+.page-header {
+  text-align   : center;
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.page-title {
+  font-family  : var(--font-display);
+  font-size    : 2.8rem;
+  color        : var(--ink);
+  line-height  : 1.15;
+}
+
+.page-subtitle {
+  margin-top : 8px;
+  color      : var(--ink-muted);
+  font-style : italic;
+  font-size  : 1.05rem;
+}
+
+/* ===================================================================
+   6. Post Grid & Cards
+=================================================================== */
+.post-grid {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap                  : 28px;
+}
+
+.post-card {
+  background   : var(--paper-card);
+  border       : 1px solid var(--rule);
+  border-top   : 3px solid var(--ink);
+  border-radius: var(--radius);
+  padding      : 28px 24px 20px;
+  box-shadow   : var(--shadow-card);
+  display      : flex;
+  flex-direction: column;
+  gap          : 12px;
+  transition   : transform var(--transition), box-shadow var(--transition);
+}
+
+.post-card:hover {
+  transform  : translateY(-3px);
+  box-shadow : 0 6px 24px rgba(26,17,9,0.12);
+}
+
+.post-meta {
+  display        : flex;
+  justify-content: space-between;
+  font-size      : 0.78rem;
+  color          : var(--ink-muted);
+  text-transform : uppercase;
+  letter-spacing : 0.6px;
+}
+
+.post-title {
+  font-family : var(--font-display);
+  font-size   : 1.3rem;
+  line-height : 1.3;
+  color       : var(--ink);
+}
+
+.post-excerpt {
+  color      : var(--ink-light);
+  font-size  : 0.93rem;
+  line-height: 1.6;
+  flex       : 1;
+}
+
+/* Action buttons row on each card */
+.post-actions {
+  display    : flex;
+  gap        : 10px;
+  margin-top : 6px;
+  flex-wrap  : wrap;
+}
+
+/* ===================================================================
+   7. Buttons
+=================================================================== */
+.btn {
+  display       : inline-flex;
+  align-items   : center;
+  justify-content: center;
+  gap           : 5px;
+  padding       : 9px 18px;
+  font-size     : 0.85rem;
+  font-family   : var(--font-body);
+  font-weight   : 600;
+  border        : none;
+  border-radius : var(--radius);
+  cursor        : pointer;
+  transition    : background var(--transition), transform var(--transition);
+  text-decoration: none;
+  white-space   : nowrap;
+}
+
+.btn:active { transform: scale(0.96); }
+
+/* Primary — publish / save */
+.btn-primary {
+  background : var(--accent);
+  color      : #fff;
+}
+.btn-primary:hover { background: var(--accent-hover); text-decoration: none; }
+
+/* Secondary — cancel */
+.btn-secondary {
+  background : var(--rule);
+  color      : var(--ink);
+}
+.btn-secondary:hover { background: #d9cfc4; text-decoration: none; }
+
+/* Edit */
+.btn-edit {
+  background : #2980b9;
+  color      : #fff;
+  padding    : 7px 14px;
+  font-size  : 0.8rem;
+}
+.btn-edit:hover { background: #1f6390; text-decoration: none; }
+
+/* Delete */
+.btn-delete {
+  background : #e74c3c;
+  color      : #fff;
+  padding    : 7px 14px;
+  font-size  : 0.8rem;
+}
+.btn-delete:hover { background: #c0392b; }
+
+/* ===================================================================
+   8. Empty State
+=================================================================== */
+.empty-state {
+  text-align : center;
+  padding    : 80px 20px;
+  color      : var(--ink-muted);
+}
+
+.empty-icon {
+  font-size    : 3.5rem;
+  margin-bottom: 16px;
+}
+
+.empty-state h2 {
+  font-family  : var(--font-display);
+  font-size    : 1.8rem;
+  color        : var(--ink);
+  margin-bottom: 8px;
+}
+
+.empty-state p { margin-bottom: 24px; font-style: italic; }
+
+/* ===================================================================
+   9. Form Pages (Create & Edit)
+=================================================================== */
+.form-wrapper {
+  max-width : 640px;
+  margin    : 0 auto;
+}
+
+.form-header {
+  margin-bottom : 28px;
+  padding-bottom: 24px;
+  border-bottom : 2px solid var(--ink);
+}
+
+.form-title {
+  font-family : var(--font-display);
+  font-size   : 2rem;
+  color       : var(--ink);
+}
+
+.post-id-badge {
+  font-size    : 1rem;
+  color        : var(--ink-muted);
+  font-family  : var(--font-body);
+  font-style   : italic;
+}
+
+.form-subtitle {
+  margin-top : 6px;
+  color      : var(--ink-muted);
+  font-style : italic;
+}
+
+/* Alert / error banner */
+.alert {
+  padding      : 12px 16px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  font-size    : 0.9rem;
+}
+
+.alert-error {
+  background   : var(--warn-bg);
+  border       : 1px solid var(--warn-border);
+  color        : #a93226;
+}
+
+/* Form elements */
+.blog-form { display: flex; flex-direction: column; gap: 22px; }
+
+.form-group { display: flex; flex-direction: column; gap: 7px; }
+
+.form-label {
+  font-size   : 0.85rem;
+  font-weight : 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color       : var(--ink-muted);
+}
+
+.form-input,
+.form-textarea {
+  font-family  : var(--font-body);
+  font-size    : 1rem;
+  color        : var(--ink);
+  background   : var(--paper-card);
+  border       : 1.5px solid var(--rule);
+  border-radius: var(--radius);
+  padding      : 12px 14px;
+  outline      : none;
+  transition   : border-color var(--transition), box-shadow var(--transition);
+  width        : 100%;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color : var(--accent);
+  box-shadow   : 0 0 0 3px rgba(192,57,43,0.12);
+}
+
+.form-textarea { resize: vertical; min-height: 220px; line-height: 1.7; }
+
+.form-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ===================================================================
+   10. Footer
+=================================================================== */
+.footer {
+  background : var(--ink);
+  color      : #7a6f64;
+  text-align : center;
+  padding    : 20px;
+  font-size  : 0.82rem;
+  font-style : italic;
+}
+
+/* ===================================================================
+   11. Responsive
+=================================================================== */
+@media (max-width: 600px) {
+  .page-title  { font-size: 2rem; }
+  .navbar      { padding: 0 16px; }
+  .post-grid   { grid-template-columns: 1fr; }
+  .form-actions { flex-direction: column; }
+  .btn         { width: 100%; justify-content: center; }
+}
