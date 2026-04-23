@@ -1,0 +1,303 @@
+
+:root {
+  --bg-page        : #f0f4f8;
+  --bg-card        : #ffffff;
+  --bg-input       : #f7f9fc;
+  --clr-primary    : #4f46e5;          /* indigo accent */
+  --clr-primary-dk : #3730a3;
+  --clr-danger     : #ef4444;
+  --clr-danger-dk  : #b91c1c;
+  --clr-success    : #22c55e;
+  --clr-edit       : #f59e0b;
+  --clr-edit-dk    : #d97706;
+  --clr-text       : #1e293b;
+  --clr-muted      : #64748b;
+  --clr-border     : #e2e8f0;
+  --clr-done-text  : #94a3b8;
+  --radius-sm      : 8px;
+  --radius-md      : 12px;
+  --radius-lg      : 20px;
+  --shadow-card    : 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-btn     : 0 2px 8px rgba(79, 70, 229, 0.3);
+  --font-main      : 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --transition     : 0.2s ease;
+}
+
+/* ===================================================================
+   2. Reset & Base
+=================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family  : var(--font-main);
+  background   : var(--bg-page);
+  color        : var(--clr-text);
+  min-height   : 100vh;
+  display      : flex;
+  align-items  : flex-start;
+  justify-content: center;
+  padding      : 40px 16px 80px;
+}
+
+/* ===================================================================
+   3. App Wrapper (Card Container)
+=================================================================== */
+.app-wrapper {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow   : var(--shadow-card);
+  width        : 100%;
+  max-width    : 580px;
+  overflow     : hidden;
+}
+
+/* ===================================================================
+   4. Header
+=================================================================== */
+.app-header {
+  background   : linear-gradient(135deg, var(--clr-primary) 0%, #7c3aed 100%);
+  color        : #fff;
+  padding      : 36px 32px 28px;
+  text-align   : center;
+}
+
+.header-icon {
+  font-size    : 2.2rem;
+  margin-bottom: 8px;
+  display      : block;
+}
+
+.app-title {
+  font-size    : 2rem;
+  font-weight  : 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.app-desc {
+  font-size    : 0.92rem;
+  opacity      : 0.85;
+  line-height  : 1.5;
+}
+
+/* ===================================================================
+   5. Task Counter
+=================================================================== */
+.task-counter {
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  gap             : 12px;
+  padding         : 12px 32px;
+  background      : #f1f5ff;
+  border-bottom   : 1px solid var(--clr-border);
+  font-size       : 0.85rem;
+  font-weight     : 600;
+  color           : var(--clr-muted);
+}
+
+.counter-divider { color: var(--clr-border); }
+
+.completed-label { color: var(--clr-success); }
+
+/* ===================================================================
+   6. Input Section
+=================================================================== */
+.input-section {
+  display      : flex;
+  gap          : 10px;
+  padding      : 24px 24px 16px;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+/* Input box */
+.task-input {
+  flex         : 1;
+  height       : 46px;
+  padding      : 0 16px;
+  font-size    : 0.95rem;
+  font-family  : var(--font-main);
+  background   : var(--bg-input);
+  border       : 1.5px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  color        : var(--clr-text);
+  outline      : none;
+  transition   : border-color var(--transition), box-shadow var(--transition);
+}
+
+.task-input::placeholder { color: var(--clr-muted); }
+
+.task-input:focus {
+  border-color : var(--clr-primary);
+  box-shadow   : 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* ===================================================================
+   7. Buttons (shared base + variants)
+=================================================================== */
+.btn {
+  display      : inline-flex;
+  align-items  : center;
+  justify-content: center;
+  height       : 46px;
+  padding      : 0 18px;
+  font-size    : 0.9rem;
+  font-weight  : 600;
+  font-family  : var(--font-main);
+  border       : none;
+  border-radius: var(--radius-sm);
+  cursor       : pointer;
+  transition   : background var(--transition), transform var(--transition),
+                 box-shadow var(--transition);
+  white-space  : nowrap;
+}
+
+.btn:active { transform: scale(0.96); }
+
+/* Add Task button */
+.btn-add {
+  background   : var(--clr-primary);
+  color        : #fff;
+  box-shadow   : var(--shadow-btn);
+}
+.btn-add:hover {
+  background   : var(--clr-primary-dk);
+  box-shadow   : 0 4px 12px rgba(79, 70, 229, 0.45);
+}
+
+/* Edit button (per task) */
+.btn-edit {
+  background   : var(--clr-edit);
+  color        : #fff;
+  height       : 34px;
+  padding      : 0 12px;
+  font-size    : 0.78rem;
+}
+.btn-edit:hover { background: var(--clr-edit-dk); }
+
+/* Delete button (per task) */
+.btn-delete {
+  background   : var(--clr-danger);
+  color        : #fff;
+  height       : 34px;
+  padding      : 0 12px;
+  font-size    : 0.78rem;
+}
+.btn-delete:hover { background: var(--clr-danger-dk); }
+
+/* Save button (shown while editing) */
+.btn-save {
+  background   : var(--clr-success);
+  color        : #fff;
+  height       : 34px;
+  padding      : 0 12px;
+  font-size    : 0.78rem;
+}
+.btn-save:hover { filter: brightness(0.9); }
+
+/* ===================================================================
+   8. Task List
+=================================================================== */
+.task-list {
+  list-style   : none;
+  padding      : 8px 24px 16px;
+}
+
+/* Individual task item */
+.task-item {
+  display      : flex;
+  align-items  : center;
+  gap          : 12px;
+  padding      : 13px 14px;
+  margin-top   : 10px;
+  background   : var(--bg-input);
+  border       : 1.5px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  transition   : box-shadow var(--transition), border-color var(--transition);
+  animation    : slideIn 0.22s ease forwards;
+}
+
+/* Subtle hover lift */
+.task-item:hover {
+  box-shadow   : 0 2px 12px rgba(0,0,0,0.07);
+  border-color : #c7d2fe;
+}
+
+/* Slide-in keyframe for new tasks */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Completion checkbox */
+.task-checkbox {
+  width        : 18px;
+  height       : 18px;
+  accent-color : var(--clr-primary);
+  cursor       : pointer;
+  flex-shrink  : 0;
+}
+
+/* Task text span */
+.task-text {
+  flex         : 1;
+  font-size    : 0.95rem;
+  line-height  : 1.4;
+  word-break   : break-word;
+  color        : var(--clr-text);
+  transition   : color var(--transition), text-decoration var(--transition);
+}
+
+/* Completed task styling */
+.task-item.done .task-text {
+  text-decoration: line-through;
+  color        : var(--clr-done-text);
+}
+
+/* Inline edit input (replaces task text while editing) */
+.edit-input {
+  flex         : 1;
+  height       : 34px;
+  padding      : 0 10px;
+  font-size    : 0.92rem;
+  font-family  : var(--font-main);
+  background   : #fff;
+  border       : 1.5px solid var(--clr-primary);
+  border-radius: var(--radius-sm);
+  outline      : none;
+  color        : var(--clr-text);
+  box-shadow   : 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* Action buttons container per task */
+.task-actions {
+  display      : flex;
+  gap          : 6px;
+  flex-shrink  : 0;
+}
+
+/* ===================================================================
+   9. Empty State
+=================================================================== */
+.empty-state {
+  text-align   : center;
+  color        : var(--clr-muted);
+  font-size    : 0.9rem;
+  padding      : 24px 24px 32px;
+  display      : none;          /* shown via JS when list is empty */
+}
+
+/* ===================================================================
+   10. Responsive Adjustments
+=================================================================== */
+@media (max-width: 480px) {
+  .input-section { flex-direction: column; }
+  .btn-add       { width: 100%; }
+  .app-title     { font-size: 1.5rem; }
+  .app-header    { padding: 28px 20px 22px; }
+  .task-list     { padding: 8px 16px 16px; }
+}
