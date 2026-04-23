@@ -1,0 +1,69 @@
+<!--
+  create.html — Create New Post Page
+  Extends base.html and provides a form to submit a new blog post.
+  Displays a server-side error message if validation fails.
+-->
+{% extends "base.html" %}
+
+{% block title %}New Post — Simple Blog{% endblock %}
+
+{% block content %}
+
+  <div class="form-wrapper">
+
+    <!-- Page heading -->
+    <header class="form-header">
+      <h1 class="form-title">Create a New Post</h1>
+      <p class="form-subtitle">Fill in the fields below and click <strong>Publish</strong>.</p>
+    </header>
+
+    <!-- ===== Validation Error Banner ===== -->
+    {% if error %}
+      <div class="alert alert-error" role="alert">
+        ⚠️ {{ error }}
+      </div>
+    {% endif %}
+
+    <!-- ===== Create Post Form ===== -->
+    <!-- POST to /create; Flask handles the submission -->
+    <form action="{{ url_for('create') }}" method="POST" class="blog-form" novalidate>
+
+      <!-- Title field -->
+      <div class="form-group">
+        <label for="title" class="form-label">Post Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          class="form-input"
+          placeholder="Enter a compelling title…"
+          value="{{ title }}"
+          maxlength="120"
+          required
+          autofocus
+        />
+      </div>
+
+      <!-- Content field -->
+      <div class="form-group">
+        <label for="content" class="form-label">Content</label>
+        <textarea
+          id="content"
+          name="content"
+          class="form-textarea"
+          placeholder="Write your post content here…"
+          rows="10"
+          required
+        >{{ content }}</textarea>
+      </div>
+
+      <!-- Submit + Cancel -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">📤 Publish Post</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+
+{% endblock %}
