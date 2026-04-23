@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}All Contacts – Contact Manager{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>All <span>Contacts</span></h1>
+    <a href="{{ url_for('add_contact') }}" class="btn btn-primary">➕ Add Contact</a>
+</div>
+
+<!-- Search Bar -->
+<div class="card" style="margin-bottom:1.5rem; padding:1rem 1.5rem;">
+    <form method="GET" action="{{ url_for('index') }}" style="display:flex; gap:.8rem; align-items:center;">
+        <input
+            type="search"
+            name="search"
+            placeholder="🔍  Search by name or phone…"
+            value="{{ search }}"
+            style="flex:1;"
+        />
+        <button type="submit" class="btn btn-primary">Search</button>
+        {% if search %}
+            <a href="{{ url_for('index') }}" class="btn btn-ghost">Clear</a>
+        {% endif %}
+    </form>
+</div>
+
+<!-- Contacts Table -->
+<div class="card">
+    {% if contacts %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                        <td><span class="badge">{{ loop.index }}</span></td>
+                        <td><strong>{{ contact.name }}</strong></td>
+                        <td>{{ contact.phone }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.address or '—' }}</td>
+                        <td>
+                            <div class="actions">
+                                <a href="{{ url_for('edit_contact', contact_id=contact.id) }}" class="btn btn-warning">✏️ Edit</a>
+                                <form method="POST" action="{{ url_for('delete_contact', contact_id=contact.id) }}"
+                                      onsubmit="return confirm('Delete {{ contact.name }}?')">
+                                    <button type="submit" class="btn btn-danger">🗑 Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top:1rem; color:var(--muted); font-size:.85rem;">
+            Showing {{ contacts|length }} contact{{ 's' if contacts|length != 1 else '' }}
+            {% if search %} matching "<strong style="color:var(--text)">{{ search }}</strong>"{% endif %}
+        </p>
+    {% else %}
+        <div class="empty-state">
+            <p>{% if search %}No contacts match your search.{% else %}No contacts yet.{% endif %}</p>
+            <a href="{{ url_for('add_contact') }}" class="btn btn-primary">➕ Add First Contact</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
