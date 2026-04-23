@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dynamic To-Do List</title>
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== App Wrapper ===== -->
+  <div class="app-wrapper">
+
+    <!-- ===== Header ===== -->
+    <header class="app-header">
+      <div class="header-icon">✔</div>
+      <h1 class="app-title">My To-Do List</h1>
+      <p class="app-desc">
+        Stay organised. Add tasks, mark them done, edit or delete them anytime.
+      </p>
+    </header>
+
+    <!-- ===== Task Counter (Bonus – Task 6) ===== -->
+    <div class="task-counter" id="taskCounter">
+      <span class="counter-item" id="pendingCount">0 Pending</span>
+      <span class="counter-divider">|</span>
+      <span class="counter-item completed-label" id="completedCount">0 Completed</span>
+    </div>
+
+    <!-- ===== Input Section ===== -->
+    <section class="input-section" aria-label="Add new task">
+      <input
+        type="text"
+        id="taskInput"
+        class="task-input"
+        placeholder="What needs to be done?"
+        maxlength="120"
+        autocomplete="off"
+        aria-label="Task description"
+      />
+      <button id="addBtn" class="btn btn-add" onclick="addTask()">
+        + Add Task
+      </button>
+    </section>
+
+    <!-- ===== Task List ===== -->
+    <main>
+      <ul id="taskList" class="task-list" aria-label="Task list" aria-live="polite">
+        <!-- Tasks are injected here dynamically by script.js -->
+      </ul>
+
+      <!-- Empty-state message shown when no tasks exist -->
+      <p class="empty-state" id="emptyState">
+        No tasks yet — add one above!
+      </p>
+    </main>
+
+  </div><!-- /.app-wrapper -->
+
+  <!-- Link to external JavaScript file -->
+  <script src="script.js"></script>
+</body>
+</html>
