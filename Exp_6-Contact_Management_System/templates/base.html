@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<!--
+    Project : Contact Management System
+    Author  : [Your Name]
+    Date    : 2025
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Contact Manager{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        /* ── CSS Reset & Variables ─────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #0f1117;
+            --surface:   #1a1d27;
+            --surface2:  #242838;
+            --accent:    #6c63ff;
+            --accent2:   #ff6584;
+            --green:     #43e97b;
+            --text:      #e8eaf6;
+            --muted:     #7b7f9e;
+            --border:    rgba(108,99,255,.25);
+            --radius:    12px;
+            --shadow:    0 8px 32px rgba(0,0,0,.45);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── Navbar ────────────────────────────────── */
+        nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-brand {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-brand span { color: var(--accent2); }
+
+        .nav-links { display: flex; gap: 1rem; }
+
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: .92rem;
+            font-weight: 500;
+            padding: .4rem .9rem;
+            border-radius: 8px;
+            transition: all .2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text);
+            background: var(--surface2);
+        }
+
+        /* ── Main Container ────────────────────────── */
+        main {
+            max-width: 960px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ── Flash Messages ────────────────────────── */
+        .flash-list { list-style: none; margin-bottom: 1.5rem; }
+
+        .flash-list li {
+            padding: .8rem 1.2rem;
+            border-radius: var(--radius);
+            margin-bottom: .5rem;
+            font-size: .92rem;
+            font-weight: 500;
+        }
+
+        .flash-success {
+            background: rgba(67,233,123,.12);
+            border: 1px solid rgba(67,233,123,.3);
+            color: var(--green);
+        }
+
+        .flash-error {
+            background: rgba(255,101,132,.12);
+            border: 1px solid rgba(255,101,132,.3);
+            color: var(--accent2);
+        }
+
+        /* ── Buttons ───────────────────────────────── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .55rem 1.2rem;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .88rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            transition: all .2s;
+        }
+
+        .btn-primary  { background: var(--accent);  color: #fff; }
+        .btn-primary:hover  { background: #5a52e0; transform: translateY(-1px); }
+
+        .btn-warning  { background: #f9a825; color: #111; }
+        .btn-warning:hover  { background: #f57f17; }
+
+        .btn-danger   { background: rgba(255,101,132,.15); color: var(--accent2); border: 1px solid rgba(255,101,132,.3); }
+        .btn-danger:hover   { background: rgba(255,101,132,.28); }
+
+        .btn-ghost    { background: var(--surface2); color: var(--muted); }
+        .btn-ghost:hover    { color: var(--text); }
+
+        /* ── Cards ─────────────────────────────────── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* ── Forms ─────────────────────────────────── */
+        .form-group { margin-bottom: 1.2rem; }
+
+        label {
+            display: block;
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: .45rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="search"] {
+            width: 100%;
+            padding: .7rem 1rem;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            font-size: .95rem;
+            transition: border-color .2s, box-shadow .2s;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(108,99,255,.18);
+        }
+
+        /* ── Table ─────────────────────────────────── */
+        .table-wrap { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .92rem;
+        }
+
+        thead tr {
+            border-bottom: 2px solid var(--border);
+        }
+
+        th {
+            font-family: 'Space Mono', monospace;
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: var(--muted);
+            padding: .9rem 1rem;
+            text-align: left;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,.05);
+            vertical-align: middle;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+
+        tbody tr:hover { background: rgba(108,99,255,.06); }
+
+        .badge {
+            display: inline-block;
+            padding: .2rem .65rem;
+            border-radius: 999px;
+            font-size: .78rem;
+            font-weight: 600;
+            background: rgba(108,99,255,.18);
+            color: var(--accent);
+        }
+
+        .actions { display: flex; gap: .5rem; }
+
+        /* ── Page heading ──────────────────────────── */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.8rem;
+        }
+
+        .page-header h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .page-header h1 span { color: var(--accent); }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--muted);
+        }
+
+        .empty-state p { font-size: 1.05rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="{{ url_for('index') }}" class="nav-brand">Contact<span>.</span>Manager</a>
+    <div class="nav-links">
+        <a href="{{ url_for('index') }}"       {% if request.endpoint == 'index'       %}class="active"{% endif %}>🏠 Home</a>
+        <a href="{{ url_for('add_contact') }}" {% if request.endpoint == 'add_contact' %}class="active"{% endif %}>➕ Add Contact</a>
+    </div>
+</nav>
+
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="flash-list">
+                {% for category, message in messages %}
+                    <li class="flash-{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>
