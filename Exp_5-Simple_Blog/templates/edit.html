@@ -1,0 +1,67 @@
+<!--
+  edit.html — Edit Existing Post Page
+  Extends base.html and pre-fills the form with the current post data.
+  On submit, the updated values are sent via POST to /edit/<id>.
+-->
+{% extends "base.html" %}
+
+{% block title %}Edit Post — Simple Blog{% endblock %}
+
+{% block content %}
+
+  <div class="form-wrapper">
+
+    <!-- Page heading -->
+    <header class="form-header">
+      <h1 class="form-title">Edit Post <span class="post-id-badge">&#35;{{ post.id }}</span></h1>
+      <p class="form-subtitle">Make your changes and click <strong>Save Changes</strong>.</p>
+    </header>
+
+    <!-- ===== Validation Error Banner ===== -->
+    {% if error %}
+      <div class="alert alert-error" role="alert">
+        ⚠️ {{ error }}
+      </div>
+    {% endif %}
+
+    <!-- ===== Edit Post Form ===== -->
+    <!-- POST to /edit/<id>; Flask updates the post in memory -->
+    <form action="{{ url_for('edit', post_id=post.id) }}" method="POST" class="blog-form" novalidate>
+
+      <!-- Title field — pre-filled with current title -->
+      <div class="form-group">
+        <label for="title" class="form-label">Post Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          class="form-input"
+          value="{{ post.title }}"
+          maxlength="120"
+          required
+          autofocus
+        />
+      </div>
+
+      <!-- Content field — pre-filled with current content -->
+      <div class="form-group">
+        <label for="content" class="form-label">Content</label>
+        <textarea
+          id="content"
+          name="content"
+          class="form-textarea"
+          rows="10"
+          required
+        >{{ post.content }}</textarea>
+      </div>
+
+      <!-- Submit + Cancel -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+      </div>
+
+    </form>
+  </div>
+
+{% endblock %}
