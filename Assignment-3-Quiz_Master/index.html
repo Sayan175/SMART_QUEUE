@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang=
+"en">
+<head>
+<meta charset=
+"UTF-8">
+<meta name=
+"viewport" content=
+"width=device-width, iniOal-scale=1.0">
+<Otle>Quiz Master - Home</Otle>
+<link rel=
+"stylesheet" href=
+"{{ url
+_
+for('staOc'
+, filename=
+'style.css') }}">
+</head>
+<body>
+<div class=
+"container">
+<div class=
+"home-card">
+<div class=
+"logo">
+</div>
+<h1 class=
+"Otle">Quiz Master</h1>
+<p class=
+"subOtle">Test your Web Development Knowledge!</p>
+<div class=
+"info-grid">
+<div class=
+"info-box">
+<span class=
+"info-icon">
+<span>10 QuesOons</span>
+</span>
+</div>
+<div class=
+"info-box">
+<span class=
+"info-icon">
+<span>Timed Quiz</span>
+</span>
+</div>
+<div class=
+"info-box">
+<span class=
+"info-icon">
+<span>Shuﬄed</span>
+</span>
+</div>
+<div class=
+"info-box">
+<span class=
+"info-icon">
+<span>Scored</span>
+</span>
+</div>
+</div>
+<div class=
+"se
+_
+ngs-secOon">
+<h3>
+⚙ Quiz Se
+_
+ngs</h3>
+<div class=
+"se
+_
+ng-item">
+<label for=
+"Ome
+limit">
+_
+⏱ Time per quesOon (seconds):</label>
+<select id=
+"Ome
+limit">
+_
+<opOon value=
+"15">15 seconds</opOon>
+<opOon value=
+"30" selected>30 seconds</opOon>
+<opOon value=
+"45">45 seconds</opOon>
+<opOon value=
+"60">60 seconds</opOon>
+</select>
+</div>
+<div class=
+"se
+_
+ng-item checkbox-item">
+<label>
+🧠
+📝
+⏱
+🔀
+🏆
+<input type=
+"checkbox" id=
+"negaOve
+_
+marking">
+Enable NegaOve Marking (-0.25 per wrong answer)
+</label>
+</div>
+</div>
+<buhon class=
+"btn-start" onclick=
+"startQuiz()">
+🚀 Start Quiz
+</buhon>
+<p class=
+"hint">QuesOons are randomly shuﬄed each Ome!</p>
+</div>
+</div>
+<script>
+funcOon startQuiz() {
+const Ome = document.getElementById('Ome
+_
+limit').value;
+const negaOve = document.getElementById('negaOve
+_
+marking').checked;
+window.locaOon.href =
+`/start?Ome=${Ome}&negaOve=${negaOve}`
+;
+}
+</script>
+</body>
+</html>
+➖
