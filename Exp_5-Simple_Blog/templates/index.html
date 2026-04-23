@@ -1,0 +1,66 @@
+<!--
+  index.html — Home Page
+  Extends base.html and displays all blog posts in a card grid.
+  If no posts exist, a friendly empty-state message is shown.
+-->
+{% extends "base.html" %}
+
+{% block title %}Home — Simple Blog{% endblock %}
+
+{% block content %}
+
+  <!-- Page heading -->
+  <header class="page-header">
+    <h1 class="page-title">All Posts</h1>
+    <p class="page-subtitle">Thoughts, stories, and ideas.</p>
+  </header>
+
+  <!-- ===== Post Listing ===== -->
+  {% if posts %}
+    <div class="post-grid">
+      {% for post in posts %}
+        <article class="post-card">
+
+          <!-- Post metadata -->
+          <div class="post-meta">
+            <span class="post-date">{{ post.date }}</span>
+            <span class="post-id">&#35;{{ post.id }}</span>
+          </div>
+
+          <!-- Post title -->
+          <h2 class="post-title">{{ post.title }}</h2>
+
+          <!-- Post content (truncated at 200 chars for the listing view) -->
+          <p class="post-excerpt">
+            {{ post.content[:200] }}{% if post.content | length > 200 %}…{% endif %}
+          </p>
+
+          <!-- Action buttons: Edit & Delete -->
+          <div class="post-actions">
+            <!-- Edit button → GET /edit/<id> -->
+            <a href="{{ url_for('edit', post_id=post.id) }}" class="btn btn-edit">
+              ✏️ Edit
+            </a>
+
+            <!-- Delete button → POST /delete/<id> (uses a small form) -->
+            <form action="{{ url_for('delete', post_id=post.id) }}" method="POST"
+                  onsubmit="return confirm('Delete this post? This cannot be undone.');">
+              <button type="submit" class="btn btn-delete">🗑 Delete</button>
+            </form>
+          </div>
+
+        </article>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <!-- Empty state — shown when no posts exist -->
+    <div class="empty-state">
+      <div class="empty-icon">📝</div>
+      <h2>No posts yet!</h2>
+      <p>Be the first to share something.</p>
+      <a href="{{ url_for('create') }}" class="btn btn-primary">Create First Post</a>
+    </div>
+  {% endif %}
+
+{% endblock %}
