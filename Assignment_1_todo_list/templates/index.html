@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,
+initial-scale=1.0" />
+<title>My To-Do List</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container">
+<header>
+<h1>📝 My To-Do List</h1>
+<p class="subtitle">Stay organised, stay productive</
+p>
+</header>
+<!-- Input Form -->
+<div class="task-form">
+<div class="form-row">
+<input
+type="text"
+id="taskTitle"
+placeholder="Enter task title (max 50 chars)..."
+maxlength="50"
+autocomplete="off"
+/>
+<select id="taskPriority">
+<option value="Low">🟢 Low</option>
+<option value="Medium" selected>🟡 Medium</
+option>
+<option value="High">🔴 High</option>
+</select>
+</div>
+<textarea
+id="taskDescription"
+placeholder="Description (optional)..."
+rows="2"
+maxlength="200"
+></textarea>
+<div class="form-row">
+<input type="date" id="taskDueDate" title="Due date
+(optional)" />
+<button id="addTaskBtn" onclick="addTask()">➕
+Add Task</button>
+</div>
+</div>
+<!-- Search + Sort -->
+<div class="toolbar">
+<input type="text" id="searchInput" placeholder="🔍
+Search tasks..." oninput="renderTasks()" />
+<select id="sortSelect" onchange="renderTasks()">
+<option value="newest">Sort: Newest First</option>
+<option value="oldest">Sort: Oldest First</option>
+<option value="priority">Sort: Priority</option>
+<option value="duedate">Sort: Due Date</option>
+</select>
+</div>
+<!-- Filter Buttons -->
+<div class="filters">
+<button class="filter-btn active" onclick="setFilter('all',
+this)">All</button>
+<button class="filter-btn" onclick="setFilter('active',
+this)">Active</button>
+<button class="filter-btn"
+onclick="setFilter('completed', this)">Completed</button>
+<button class="filter-btn" onclick="exportJSON()">⬇
+Export JSON</button>
+</div>
+<!-- Counter -->
+<div class="counter" id="counter">Completed: 0 / Total:
+0</div>
+<!-- Task List -->
+<ul id="taskList" class="task-list"></ul>
+</div>
+<!-- Edit Modal -->
+<div id="editModal" class="modal hidden">
+<div class="modal-content">
+<h2>✏ Edit Task</h2>
+<input type="text" id="editTitle" maxlength="50"
+placeholder="Task title..." />
+<select id="editPriority">
+<option value="Low">🟢 Low</option>
+<option value="Medium">🟡 Medium</option>
+<option value="High">🔴 High</option>
+</select>
+<textarea id="editDescription" rows="2"
+maxlength="200" placeholder="Description..."></
+textarea>
+<input type="date" id="editDueDate" />
+<div class="modal-actions">
+<button onclick="saveEdit()">💾 Save</button>
+<button class="cancel" onclick="closeModal()">✖
+Cancel</button>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
