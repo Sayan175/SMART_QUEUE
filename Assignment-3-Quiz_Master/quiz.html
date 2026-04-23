@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang=
+"en">
+<head>
+<meta charset=
+"UTF-8">
+<meta name=
+"viewport" content=
+"width=device-width, iniOal-scale=1.0">
+<Otle>Quiz Master - QuesOon {{ current }}</Otle>
+<link rel=
+"stylesheet" href=
+"{{ url
+_
+for('staOc'
+, filename=
+'style.css') }}">
+</head>
+<body>
+<div class=
+"container">
+<div class=
+"quiz-card">
+<!-- Header -->
+<div class=
+"quiz-header">
+<div class=
+"quesOon-counter">QuesOon {{ current }} of {{ total }}</div>
+<div class=
+"Omer-box" id=
+"OmerBox">
+⏱ <span id=
+"Omer">{{ Ome
+_
+</div>
+</div>
+{% if negaOve %}
+limit }}</span>s
+<div class=
+"negaOve-noOce">⚠ NegaOve marking enabled: -0.25 per wrong answer</div>
+{% endif %}
+<!-- Progress Bar -->
+<div class=
+"progress-bar-outer">
+<div class=
+"progress-bar-inner" style=
+"width: {{ (current / total * 100)|int }}%"></div>
+</div>
+<!-- QuesOon -->
+<div class=
+"quesOon-box">
+<p class=
+"quesOon-text">{{ quesOon.quesOon }}</p>
+</div>
+<!-- OpOons -->
+<form method=
+"POST" id=
+"quizForm">
+<div class=
+"opOons-grid">
+{% for opOon in opOons %}
+<label class=
+"opOon-label" onclick=
+"selectOpOon(this)">
+<input type=
+"radio" name=
+"answer" value=
+"{{ opOon }}" required>
+<span class=
+"opOon-text">{{ opOon }}</span>
+</label>
+{% endfor %}
+</div>
+<buhon type=
+"submit" class=
+"btn-submit" id=
+"submitBtn">
+{% if current == total %}
+🏁 Submit Quiz
+{% else %}
+Next QuesOon →
+{% endif %}
+</buhon>
+</form>
+</div>
+</div>
+<script>
+let OmeLet = {{ Ome
+_
+limit }};
+const OmerEl = document.getElementById('Omer');
+const OmerBox = document.getElementById('OmerBox');
+const countdown = setInterval(() => {
+OmeLet--;
+OmerEl.textContent = OmeLet;
+if (OmeLet <= 10) {
+OmerBox.classList.add('Omer-warning');
+}
+if (OmeLet <= 5) {
+OmerBox.classList.add('Omer-danger');
+}
+if (OmeLet <= 0) {
+clearInterval(countdown);
+// Auto-submit with no answer selected
+const form = document.getElementById('quizForm');
+// Add a hidden input for unanswered
+const hidden = document.createElement('input');
+hidden.type =
+'hidden';
+hidden.name =
+'answer';
+hidden.value =
+'
+TIMEOUT
+';
+__
+__
+form.appendChild(hidden);
+form.submit();
+}
+}, 1000);
+funcOon selectOpOon(label) {
+document.querySelectorAll('
+.opOon-label').forEach(l => l.classList.remove('selected'));
+label.classList.add('selected');
+}
+document.getElementById('quizForm').addEventListener('submit'
+, () => {
+clearInterval(countdown);
+});
+</script>
+</body>
+</html>
